@@ -1,0 +1,70 @@
+# Code Quality Components Context
+
+## Purpose
+Provides components for code evaluation, improvement, and quality assurance.
+
+## Components
+1. code_evaluation_agent.md
+   - Code analysis
+   - Quality assessment
+   - Improvement suggestions
+
+2. code_generator_agent.md
+   - Code generation
+   - Pattern implementation
+   - Structure creation
+
+3. code_improver_agent.md
+   - Code enhancement
+   - Optimization
+   - Best practices
+
+## Integration
+- Used by Cline for quality
+- Guided by Neo's standards
+- Maintains code quality
+
+## Usage
+1. Code Analysis
+   - Evaluate code
+   - Identify issues
+   - Suggest improvements
+
+2. Implementation
+   - Follow standards
+   - Apply improvements
+   - Document changes
+
+## Relationships
+- Supports development
+- Ensures quality
+- Guides improvements
+
+## Implementation Flow
+1. Code evaluation
+2. Quality assessment
+3. Improvement suggestions
+4. Implementation guidance
+
+## Documentation
+- Quality standards
+- Best practices
+- Implementation guides
+- Improvement patterns
+
+## Dependencies
+- Code analysis tools
+- Quality metrics
+- Implementation standards
+
+## Key Features
+- Code evaluation
+- Quality assessment
+- Improvement suggestions
+- Best practices implementation
+
+## Notes
+- Critical for code quality
+- Guides improvements
+- Maintains standards
+- Ensures best practices

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="600" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="900" height="600" fill="#ffffff"/>
+    
+    <!-- Header -->
+    <rect x="0" y="0" width="900" height="60" fill="#f8f9fa"/>
+    <text x="30" y="38" font-family="Arial" font-size="24" fill="#1a1a1a">Visual Text Transformer</text>
+    <!-- Theme Toggle -->
+    <circle cx="840" cy="30" r="15" fill="#e2e8f0" stroke="#718096"/>
+    <path d="M 830 30 Q 840 20 850 30 Q 840 40 830 30" fill="#718096"/>
+    
+    <!-- Main Content Area -->
+    <g transform="translate(0, 80)">
+        <!-- Text Input Section -->
+        <rect x="30" y="0" width="840" height="180" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+        <text x="45" y="30" font-family="Arial" font-size="16" fill="#4a5568">Enter your text</text>
+        <rect x="45" y="45" width="810" height="120" rx="4" fill="#f7fafc" stroke="#cbd5e0"/>
+        <text x="60" y="75" font-family="Arial" font-size="14" fill="#a0aec0" opacity="0.8">Enter text to transform into visuals...</text>
+        
+        <!-- Control Panel -->
+        <g transform="translate(30, 200)">
+            <!-- Transform Button -->
+            <rect x="0" y="0" width="200" height="40" rx="6" fill="#4299e1"/>
+            <text x="100" y="25" font-family="Arial" font-size="14" fill="#ffffff" text-anchor="middle">Transform to Visual</text>
+            
+            <!-- Style Selector -->
+            <rect x="220" y="0" width="150" height="40" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+            <text x="295" y="25" font-family="Arial" font-size="14" fill="#4a5568" text-anchor="middle">Style ▼</text>
+            
+            <!-- Export Button -->
+            <rect x="390" y="0" width="150" height="40" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+            <text x="465" y="25" font-family="Arial" font-size="14" fill="#4a5568" text-anchor="middle">Export ▼</text>
+        </g>
+        
+        <!-- Visualization Output Area -->
+        <rect x="30" y="260" width="840" height="240" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+        <text x="450" y="380" font-family="Arial" font-size="14" fill="#a0aec0" text-anchor="middle">Visual output will appear here</text>
+    </g>
+    
+    <!-- Loading Overlay (Hidden by default) -->
+    <g opacity="0">
+        <rect width="900" height="600" fill="#000000" opacity="0.5"/>
+        <circle cx="450" cy="300" r="30" fill="none" stroke="#ffffff" stroke-width="4">
+            <animateTransform
+                attributeName="transform"
+                type="rotate"
+                from="0 450 300"
+                to="360 450 300"
+                dur="1s"
+                repeatCount="indefinite"/>
+        </circle>
+    </g>
+</svg>

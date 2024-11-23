@@ -1,0 +1,66 @@
+# Testing Components Context
+
+## Purpose
+Manages test generation, validation, and quality assurance processes.
+
+## Components
+1. generate-unit-tests.md
+   - Unit test creation
+   - Test case generation
+   - Code validation
+
+2. performance-testing-prompt.md
+   - Performance analysis
+   - Load testing
+   - System optimization
+
+## Integration
+- Used by Cline for testing
+- Validates implementation
+- Ensures quality
+
+## Usage
+1. Test Generation
+   - Create test cases
+   - Define scenarios
+   - Implement validation
+
+2. Quality Assurance
+   - Run tests
+   - Validate results
+   - Track coverage
+
+## Relationships
+- Validates implementation
+- Ensures quality
+- Guides improvements
+
+## Implementation Flow
+1. Test case generation
+2. Test implementation
+3. Validation process
+4. Quality assurance
+
+## Documentation
+- Test specifications
+- Coverage reports
+- Performance metrics
+- Quality standards
+
+## Dependencies
+- Testing frameworks
+- Performance tools
+- Coverage tracking
+- Validation systems
+
+## Key Features
+- Test generation
+- Quality assurance
+- Performance testing
+- Coverage tracking
+
+## Notes
+- Critical for quality
+- Ensures reliability
+- Validates functionality
+- Maintains standards

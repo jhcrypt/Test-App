@@ -1,0 +1,68 @@
+# Documentation Components Context
+
+## Purpose
+Manages documentation generation, maintenance, and updates across the system.
+
+## Components
+1. generate-project-README.md
+   - Project documentation
+   - Setup instructions
+   - Usage guidelines
+
+2. monitoring-setup-prompt.md
+   - System monitoring
+   - Performance tracking
+   - Status reporting
+
+3. release-notes-prompt.md
+   - Version documentation
+   - Change tracking
+   - Update history
+
+4. security-documentation-prompt.md
+   - Security guidelines
+   - Protection measures
+   - Safety protocols
+
+5. user-documentation-prompt.md
+   - User guides
+   - Feature documentation
+   - Usage instructions
+
+## Integration
+- Used by Neo for documentation
+- Referenced by Cline
+- Maintains system knowledge
+
+## Usage
+1. Documentation Generation
+   - Create documentation
+   - Update existing docs
+   - Maintain consistency
+
+2. Documentation Management
+   - Version control
+   - Change tracking
+   - Access control
+
+## Relationships
+- Supports all components
+- Guides implementation
+- Records knowledge
+
+## Implementation Flow
+1. Documentation needs identified
+2. Content generated
+3. Documentation maintained
+4. Updates tracked
+
+## Documentation Standards
+- Clear structure
+- Consistent format
+- Regular updates
+- Version control
+
+## Dependencies
+- Documentation tools
+- Version control
+- Content management

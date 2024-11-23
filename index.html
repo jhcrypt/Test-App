@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Text Transformer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .dark {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-center mb-8">
+            Text to Visual Transformer
+        </h1>
+        
+        <div class="max-w-2xl mx-auto space-y-6">
+            <div class="space-y-2">
+                <label for="textInput" class="block text-lg font-medium">
+                    Enter your text
+                </label>
+                <textarea
+                    id="textInput"
+                    class="w-full h-32 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                    placeholder="Enter text to transform into visuals..."
+                ></textarea>
+            </div>
+
+            <div class="flex gap-4">
+                <button
+                    onclick="generateVisual()"
+                    id="generateBtn"
+                    class="flex-1 py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
+                >
+                    Transform to Visual
+                </button>
+                <button
+                    onclick="toggleTheme()"
+                    class="px-4 py-2 border rounded-lg hover:bg-gray-100"
+                >
+                    Toggle Theme
+                </button>
+            </div>
+
+            <div id="outputContainer" class="mt-8 p-4 border rounded-lg min-h-[300px] bg-white">
+                <p id="outputMessage" class="text-center text-gray-500">
+                    Visual output will appear here
+                </p>
+                <div id="visualOutput" class="flex justify-center items-center">
+                </div>
+            </div>
+
+            <div id="exportOptions" class="hidden space-y-2">
+                <h3 class="font-medium">Export Options:</h3>
+                <div class="flex gap-2">
+                    <button onclick="exportVisual('png')" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">PNG</button>
+                    <button onclick="exportVisual('svg')" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">SVG</button>
+                    <button onclick="exportVisual('pdf')" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generateVisual() {
+            const text = document.getElementById('textInput').value;
+            if (!text.trim()) return;
+
+            const btn = document.getElementById('generateBtn');
+            const message = document.getElementById('outputMessage');
+            const output = document.getElementById('visualOutput');
+            const exportOptions = document.getElementById('exportOptions');
+
+            btn.disabled = true;
+            btn.textContent = 'Generating...';
+            message.textContent = 'Generating visual output...';
+
+            // Simulate processing delay
+            setTimeout(() => {
+                // Mock visual generation - create a simple visualization
+                const visual = generateMockVisual(text);
+                output.innerHTML = visual;
+                message.textContent = '';
+                exportOptions.classList.remove('hidden');
+                
+                btn.disabled = false;
+                btn.textContent = 'Transform to Visual';
+            }, 1500);
+        }
+
+        function generateMockVisual(text) {
+            // Simple mock visualization - creates colored blocks based on text
+            const words = text.trim().split(' ');
+            const colors = ['bg-blue-200', 'bg-green-200', 'bg-red-200', 'bg-yellow-200', 'bg-purple-200'];
+            
+            return `
+                <div class="flex flex-wrap gap-2 p-4">
+                    ${words.map((word, i) => `
+                        <div class="p-3 ${colors[i % colors.length]} rounded">
+                            ${word}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+        }
+
+        function exportVisual(format) {
+            const output = document.getElementById('visualOutput');
+            // Mock export functionality
+            alert(`Exporting visual as ${format.toUpperCase()}...\n(Export functionality will be implemented in the full version)`);
+        }
+    </script>
+</body>
+</html>

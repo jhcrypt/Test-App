@@ -1,0 +1,65 @@
+# Orchestration Components Context
+
+## Purpose
+Manages workflow coordination, process management, and system integration.
+
+## Components
+1. implementation-analysis-prompt.md
+   - Implementation planning
+   - Code analysis
+   - Development guidance
+
+2. prompt-chain-orchestrator.md
+   - Chain management
+   - Process coordination
+   - Workflow control
+
+3. self-reflection-prompt.md
+   - System analysis
+   - Process improvement
+   - Quality enhancement
+
+## Integration
+- Core system coordination
+- Workflow management
+- Process control
+
+## Usage
+1. Workflow Management
+   - Process coordination
+   - Task orchestration
+   - Flow control
+
+2. System Integration
+   - Component coordination
+   - Process synchronization
+   - State management
+
+## Relationships
+- Coordinates all components
+- Manages workflows
+- Controls processes
+
+## Implementation Flow
+1. Process initiation
+2. Workflow coordination
+3. Task management
+4. State tracking
+
+## Documentation
+- Process flows
+- Integration points
+- Workflow guides
+- State management
+
+## Dependencies
+- Chain system
+- Process management
+- State tracking
+- Integration tools
+
+## Key Features
+- Workflow orchestration
+- Process management
+- Integration control
+- State coordination

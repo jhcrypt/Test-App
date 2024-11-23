@@ -1,0 +1,86 @@
+# Utilities Components Context
+
+## Purpose
+Provides common functions, shared tools, and helper utilities for the system.
+
+## Components
+1. atomic_design_system.md
+   - Component system
+   - Design patterns
+   - Reusable elements
+
+2. generate-tech-stack-BOM.md
+   - Technology stack
+   - Dependencies
+   - System requirements
+
+3. react_tailwind_generator.md
+   - Component generation
+   - Style implementation
+   - UI development
+
+4. root_file_generator.md
+   - File structure
+   - Base configuration
+   - Project setup
+
+5. sitemap_generator.md
+   - Site structure
+   - Navigation flow
+   - Content organization
+
+6. workspace_component_diagram.puml
+   - Component visualization
+   - System structure
+   - Relationship mapping
+
+## Integration
+- Used by all components
+- Provides common tools
+- Supports development
+
+## Usage
+1. Utility Functions
+   - Common operations
+   - Shared tools
+   - Helper methods
+
+2. Development Support
+   - Tool generation
+   - System helpers
+   - Common patterns
+
+## Relationships
+- Supports all components
+- Provides common tools
+- Enables development
+
+## Implementation Flow
+1. Tool identification
+2. Function creation
+3. Integration support
+4. Documentation
+
+## Documentation
+- Function guides
+- Tool documentation
+- Usage examples
+- Integration guides
+
+## Dependencies
+- Core system
+- Development tools
+- Common libraries
+- Utility frameworks
+
+## Key Features
+- Common utilities
+- Shared tools
+- Helper functions
+- Development support
+
+## Notes
+- Essential support tools
+- Common functionality
+- Shared resources
+- Development aids

@@ -1,0 +1,62 @@
+# Architecture Components Context
+
+## Purpose
+Provides components for system architecture design, technical specifications, and structural planning.
+
+## Components
+1. architectural-diagram-generator.md
+   - System visualization
+   - Component relationships
+   - Architecture diagrams
+
+2. generate-high-level-system-architecture.md
+   - System structure
+   - Component organization
+   - Technical overview
+
+3. generate-PlantUML-diagram.md
+   - UML diagram generation
+   - Relationship visualization
+   - Technical documentation
+
+4. software_archtect.md
+   - System architecture design
+   - Component relationships
+   - Technical decisions
+
+5. software_archtect_api_designer.md
+   - API design specifications
+   - Endpoint planning
+   - Integration points
+
+## Integration
+- Used by Neo for architecture planning
+- Referenced by Cline for implementation
+- Guides technical decisions
+
+## Usage
+1. Architecture Design
+   - System planning
+   - Component organization
+   - Technical specifications
+
+2. Implementation
+   - Follow architecture guidelines
+   - Maintain structure
+   - Document changes
+
+## Relationships
+- Guides implementation
+- Informs development
+- Structures system
+
+## Implementation Flow
+1. Neo plans architecture
+2. Components provide guidance
+3. Cline implements
+4. Documentation maintained
+
+## Documentation
+- Architecture diagrams
+- Technical specifications
+- Implementation guides

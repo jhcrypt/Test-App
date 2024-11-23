@@ -1,0 +1,80 @@
+# UI/UX Components Context
+
+## Purpose
+Manages user interface design, user experience, and visual components.
+
+## Components
+1. layout_design_workspace.md
+   - Workspace design
+   - Component layout
+   - Interface organization
+
+2. layout_designer.md
+   - Layout planning
+   - Design patterns
+   - Visual structure
+
+3. svg-wireframe-generator.md
+   - Wireframe creation
+   - Visual prototypes
+   - Interface mockups
+
+4. ui-styling-prompt.md
+   - Visual styling
+   - Design implementation
+   - Theme management
+
+5. ux_site_map_document.md
+   - Site structure
+   - Navigation flow
+   - User journeys
+
+6. wireframe-generation-prompt.md
+   - Interface prototypes
+   - Component layout
+   - Visual structure
+
+## Integration
+- Used by Neo for design
+- Guides implementation
+- Informs development
+
+## Usage
+1. Design Process
+   - Layout planning
+   - Visual design
+   - User experience
+
+2. Implementation
+   - Component creation
+   - Style application
+   - Interface building
+
+## Relationships
+- Guides frontend
+- Informs development
+- Directs implementation
+
+## Implementation Flow
+1. Design planning
+2. Layout creation
+3. Visual styling
+4. Component implementation
+
+## Documentation
+- Design specifications
+- Layout guidelines
+- Style guides
+- Component docs
+
+## Dependencies
+- Design tools
+- Layout systems
+- Style frameworks
+- Component libraries
+
+## Key Features
+- Layout design
+- Visual styling
+- User experience
+- Component creation

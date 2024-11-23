@@ -1,0 +1,54 @@
+# Backend Components Context
+
+## Purpose
+Contains components for server implementation, database operations, and API functionality.
+
+## Components
+1. postgresql_generator.md
+   - Database schema generation
+   - Query operations
+   - Data management
+
+2. webapp_store_generator.md
+   - State management
+   - Data operations
+   - Store configuration
+
+## Integration
+- Used by Cline for implementation
+- Guided by Neo's architecture
+- Connected to frontend
+
+## Usage
+1. Server Implementation
+   - Follow architecture
+   - Implement endpoints
+   - Handle data
+
+2. Database Operations
+   - Schema management
+   - Data operations
+   - Query handling
+
+## Relationships
+- Connects with frontend
+- Manages data
+- Handles requests
+
+## Implementation Flow
+1. Neo defines architecture
+2. Components provide implementation
+3. Cline executes
+4. Integration maintained
+
+## Documentation
+- Implementation guides
+- Database schemas
+- API specifications
+- Integration details
+
+## Dependencies
+- Database system
+- API framework
+- State management
+- Frontend integration

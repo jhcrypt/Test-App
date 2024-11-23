@@ -1,0 +1,52 @@
+# Import modules
+Import-Module PSReadLine
+Import-Module Terminal-Icons
+
+# PSReadLine configuration
+Set-PSReadLineOption -PredictionSource History
+Set-PSReadLineOption -PredictionViewStyle ListView
+Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+
+# Custom prompt function
+function prompt {
+    $location = Get-Location
+    $gitBranch = git branch --show-current 2>$null
+    $promptChar = "$"
+    
+    # Change color based on admin status
+    if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+        $promptChar = "#"
+    }
+
+    Write-Host ""
+    Write-Host "$env:USERNAME" -NoNewline -ForegroundColor Green
+    Write-Host " at " -NoNewline -ForegroundColor White
+    Write-Host "$location" -NoNewline -ForegroundColor Blue
+    
+    if ($gitBranch) {
+        Write-Host " git:(" -NoNewline -ForegroundColor White
+        Write-Host "$gitBranch" -NoNewline -ForegroundColor Red
+        Write-Host ")" -NoNewline -ForegroundColor White
+    }
+    
+    Write-Host ""
+    "$promptChar "
+}
+
+# Aliases
+Set-Alias ll Get-ChildItem
+Set-Alias g git
+Set-Alias touch New-Item
+
+# Helper functions
+function .. { Set-Location .. }
+function ... { Set-Location ..\.. }
+function ~ { Set-Location $HOME }
+
+# Git aliases
+function gs { git status }
+function ga { git add $args }
+function gc { git commit -m $args }
+function gp { git push }
+function gl { git pull }

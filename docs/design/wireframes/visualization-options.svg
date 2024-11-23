@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="600" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="900" height="600" fill="#ffffff"/>
+    
+    <!-- Options Panel -->
+    <g transform="translate(50, 50)">
+        <!-- Panel Header -->
+        <rect width="800" height="500" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+        <text x="30" y="40" font-family="Arial" font-size="20" fill="#1a1a1a">Visualization Options</text>
+        
+        <!-- Grid of Visualization Types -->
+        <g transform="translate(30, 80)">
+            <!-- Row 1 -->
+            <g>
+                <!-- Word Cloud -->
+                <g>
+                    <rect width="230" height="180" rx="6" fill="#f7fafc" stroke="#e2e8f0"/>
+                    <circle cx="115" cy="70" r="40" fill="#4299e1" opacity="0.2"/>
+                    <text x="115" y="140" font-family="Arial" font-size="14" fill="#4a5568" text-anchor="middle">Word Cloud</text>
+                    <rect width="230" height="180" rx="6" fill="transparent" stroke="#4299e1" stroke-width="2" class="selection"/>
+                </g>
+                
+                <!-- Bar Chart -->
+                <g transform="translate(250, 0)">
+                    <rect width="230" height="180" rx="6" fill="#f7fafc" stroke="#e2e8f0"/>
+                    <rect x="65" y="50" width="20" height="80" fill="#4299e1" opacity="0.2"/>
+                    <rect x="95" y="70" width="20" height="60" fill="#4299e1" opacity="0.2"/>
+                    <rect x="125" y="90" width="20" height="40" fill="#4299e1" opacity="0.2"/>
+                    <text x="115" y="140" font-family="Arial" font-size="14" fill="#4a5568" text-anchor="middle">Bar Chart</text>
+                </g>
+                
+                <!-- Pie Chart -->
+                <g transform="translate(500, 0)">
+                    <rect width="230" height="180" rx="6" fill="#f7fafc" stroke="#e2e8f0"/>
+                    <circle cx="115" cy="70" r="40" fill="#4299e1" opacity="0.2"/>
+                    <path d="M 115 70 L 115 30 A 40 40 0 0 1 150 90 Z" fill="#4299e1" opacity="0.4"/>
+                    <text x="115" y="140" font-family="Arial" font-size="14" fill="#4a5568" text-anchor="middle">Pie Chart</text>
+                </g>
+            </g>
+            
+            <!-- Row 2 -->
+            <g transform="translate(0, 200)">
+                <!-- Mind Map -->
+                <g>
+                    <rect width="230" height="180" rx="6" fill="#f7fafc" stroke="#e2e8f0"/>
+                    <circle cx="115" cy="70" r="20" fill="#4299e1" opacity="0.2"/>
+                    <circle cx="75" cy="50" r="15" fill="#4299e1" opacity="0.2"/>
+                    <circle cx="155" cy="50" r="15" fill="#4299e1" opacity="0.2"/>
+                    <line x1="115" y1="70" x2="75" y2="50" stroke="#4299e1" opacity="0.2"/>
+                    <line x1="115" y1="70" x2="155" y2="50" stroke="#4299e1" opacity="0.2"/>
+                    <text x="115" y="140" font-family="Arial" font-size="14" fill="#4a5568" text-anchor="middle">Mind Map</text>
+                </g>
+                
+                <!-- Timeline -->
+                <g transform="translate(250, 0)">
+                    <rect width="230" height="180" rx="6" fill="#f7fafc" stroke="#e2e8f0"/>
+                    <line x1="45" y1="70" x2="185" y2="70" stroke="#4299e1" opacity="0.2" stroke-width="2"/>
+                    <circle cx="75" cy="70" r="10" fill="#4299e1" opacity="0.2"/>
+                    <circle cx="115" cy="70" r="10" fill="#4299e1" opacity="0.2"/>
+                    <circle cx="155" cy="70" r="10" fill="#4299e1" opacity="0.2"/>
+                    <text x="115" y="140" font-family="Arial" font-size="14" fill="#4a5568" text-anchor="middle">Timeline</text>
+                </g>
+                
+                <!-- Custom -->
+                <g transform="translate(500, 0)">
+                    <rect width="230" height="180" rx="6" fill="#f7fafc" stroke="#e2e8f0"/>
+                    <text x="115" y="70" font-family="Arial" font-size="24" fill="#4299e1" opacity="0.2" text-anchor="middle">+</text>
+                    <text x="115" y="140" font-family="Arial" font-size="14" fill="#4a5568" text-anchor="middle">Custom</text>
+                </g>
+            </g>
+        </g>
+        
+        <!-- Action Buttons -->
+        <g transform="translate(30, 480)">
+            <rect width="100" height="40" rx="6" fill="#4299e1"/>
+            <text x="50" y="25" font-family="Arial" font-size="14" fill="#ffffff" text-anchor="middle">Apply</text>
+            
+            <rect x="120" width="100" height="40" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+            <text x="170" y="25" font-family="Arial" font-size="14" fill="#4a5568" text-anchor="middle">Cancel</text>
+        </g>
+    </g>
+    
+    <!-- Style Options Panel -->
+    <g transform="translate(450, 50)" opacity="0">
+        <!-- Panel -->
+        <rect width="400" height="300" rx="8" fill="#ffffff" stroke="#e2e8f0" filter="drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"/>
+        <text x="30" y="40" font-family="Arial" font-size="16" fill="#1a1a1a">Style Options</text>
+        
+        <!-- Color Scheme -->
+        <text x="30" y="80" font-family="Arial" font-size="14" fill="#4a5568">Color Scheme</text>
+        <rect x="30" y="95" width="340" height="40" rx="4" fill="#f7fafc" stroke="#e2e8f0"/>
+        
+        <!-- Font -->
+        <text x="30" y="160" font-family="Arial" font-size="14" fill="#4a5568">Font</text>
+        <rect x="30" y="175" width="340" height="40" rx="4" fill="#f7fafc" stroke="#e2e8f0"/>
+        
+        <!-- Size -->
+        <text x="30" y="240" font-family="Arial" font-size="14" fill="#4a5568">Size</text>
+        <rect x="30" y="255" width="340" height="40" rx="4" fill="#f7fafc" stroke="#e2e8f0"/>
+    </g>
+</svg>

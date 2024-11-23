@@ -1,0 +1,65 @@
+# Meta Components Context
+
+## Purpose
+Contains metadata, configuration information, and component relationships for the system.
+
+## Components
+1. Meta Documentation Files
+   - Component metadata
+   - Configuration details
+   - Integration specifications
+
+2. Meta Information
+   - System metadata
+   - Component relationships
+   - Configuration data
+
+## Integration
+- Referenced by all components
+- Guides system organization
+- Maintains relationships
+
+## Usage
+1. Component Configuration
+   - Read metadata
+   - Apply configurations
+   - Follow relationships
+
+2. System Organization
+   - Component structure
+   - Integration points
+   - Relationship mapping
+
+## Relationships
+- Connects components
+- Defines structure
+- Guides integration
+
+## Implementation Flow
+1. Meta information defined
+2. Components configured
+3. Relationships maintained
+4. System organized
+
+## Documentation
+- Component metadata
+- Configuration guides
+- Relationship maps
+- Integration details
+
+## Dependencies
+- Component system
+- Configuration management
+- Relationship tracking
+
+## Key Features
+- Metadata management
+- Configuration control
+- Relationship mapping
+- System organization
+
+## Notes
+- Critical for system organization
+- Maintains relationships
+- Guides configuration
+- Ensures consistency

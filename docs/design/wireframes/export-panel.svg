@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="600" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background Overlay -->
+    <rect width="900" height="600" fill="rgba(0,0,0,0.5)"/>
+    
+    <!-- Export Panel -->
+    <g transform="translate(250, 100)">
+        <!-- Panel Background -->
+        <rect width="400" height="400" rx="8" fill="#ffffff" filter="drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"/>
+        
+        <!-- Header -->
+        <g transform="translate(30, 30)">
+            <text font-family="Arial" font-size="20" fill="#1a1a1a">Export Visualization</text>
+            <!-- Close Button -->
+            <g transform="translate(310, -10)">
+                <circle r="12" fill="#f7fafc" stroke="#e2e8f0"/>
+                <path d="M -6,-6 L 6,6 M -6,6 L 6,-6" stroke="#4a5568" stroke-width="2"/>
+            </g>
+        </g>
+        
+        <!-- Format Selection -->
+        <g transform="translate(30, 80)">
+            <text font-family="Arial" font-size="14" fill="#4a5568">Format</text>
+            <rect y="15" width="340" height="40" rx="4" fill="#f7fafc" stroke="#e2e8f0"/>
+            <text x="15" y="38" font-family="Arial" font-size="14" fill="#1a1a1a">PNG</text>
+            <path transform="translate(310, 25)" d="M 0,0 L 8,8 L 16,0" fill="none" stroke="#4a5568" stroke-width="2"/>
+            
+            <!-- Dropdown Options (Hidden by default) -->
+            <g opacity="0">
+                <rect y="55" width="340" height="120" rx="4" fill="#ffffff" stroke="#e2e8f0" filter="drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))"/>
+                <text x="15" y="83" font-family="Arial" font-size="14" fill="#1a1a1a">PNG</text>
+                <text x="15" y="123" font-family="Arial" font-size="14" fill="#1a1a1a">SVG</text>
+                <text x="15" y="163" font-family="Arial" font-size="14" fill="#1a1a1a">PDF</text>
+            </g>
+        </g>
+        
+        <!-- Quality Settings -->
+        <g transform="translate(30, 160)">
+            <text font-family="Arial" font-size="14" fill="#4a5568">Quality</text>
+            <rect y="15" width="340" height="40" rx="4" fill="#f7fafc" stroke="#e2e8f0"/>
+            <text x="15" y="38" font-family="Arial" font-size="14" fill="#1a1a1a">High</text>
+            <path transform="translate(310, 25)" d="M 0,0 L 8,8 L 16,0" fill="none" stroke="#4a5568" stroke-width="2"/>
+        </g>
+        
+        <!-- Size Settings -->
+        <g transform="translate(30, 240)">
+            <text font-family="Arial" font-size="14" fill="#4a5568">Size</text>
+            <rect y="15" width="340" height="40" rx="4" fill="#f7fafc" stroke="#e2e8f0"/>
+            <text x="15" y="38" font-family="Arial" font-size="14" fill="#1a1a1a">Original (1920×1080)</text>
+            <path transform="translate(310, 25)" d="M 0,0 L 8,8 L 16,0" fill="none" stroke="#4a5568" stroke-width="2"/>
+        </g>
+        
+        <!-- Action Buttons -->
+        <g transform="translate(30, 320)">
+            <!-- Download Button -->
+            <rect width="165" height="40" rx="6" fill="#4299e1"/>
+            <text x="82.5" y="25" font-family="Arial" font-size="14" fill="#ffffff" text-anchor="middle">Download</text>
+            
+            <!-- Share Button -->
+            <g transform="translate(175, 0)">
+                <rect width="165" height="40" rx="6" fill="#ffffff" stroke="#4299e1"/>
+                <text x="82.5" y="25" font-family="Arial" font-size="14" fill="#4299e1" text-anchor="middle">Share Link</text>
+            </g>
+        </g>
+    </g>
+    
+    <!-- Share Link Modal (Hidden by default) -->
+    <g transform="translate(250, 150)" opacity="0">
+        <rect width="400" height="200" rx="8" fill="#ffffff" filter="drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"/>
+        <text x="30" y="40" font-family="Arial" font-size="16" fill="#1a1a1a">Share Visualization</text>
+        
+        <!-- Link Input -->
+        <rect x="30" y="70" width="340" height="40" rx="4" fill="#f7fafc" stroke="#e2e8f0"/>
+        <text x="45" y="95" font-family="Arial" font-size="14" fill="#a0aec0">https://example.com/share/abc123</text>
+        
+        <!-- Copy Button -->
+        <rect x="30" y="130" width="340" height="40" rx="6" fill="#4299e1"/>
+        <text x="200" y="155" font-family="Arial" font-size="14" fill="#ffffff" text-anchor="middle">Copy Link</text>
+    </g>
+    
+    <!-- Loading State (Hidden by default) -->
+    <g transform="translate(250, 100)" opacity="0">
+        <rect width="400" height="400" rx="8" fill="rgba(255,255,255,0.9)"/>
+        <circle cx="200" cy="200" r="30" fill="none" stroke="#4299e1" stroke-width="4">
+            <animateTransform
+                attributeName="transform"
+                type="rotate"
+                from="0 200 200"
+                to="360 200 200"
+                dur="1s"
+                repeatCount="indefinite"/>
+        </circle>
+        <text x="200" y="260" font-family="Arial" font-size="14" fill="#4a5568" text-anchor="middle">Preparing Download...</text>
+    </g>
+</svg>

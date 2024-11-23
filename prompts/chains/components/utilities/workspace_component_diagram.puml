@@ -1,0 +1,71 @@
+@startuml
+!theme plain
+
+' Component definitions
+[Main Workspace] as workspace
+[Chat Panel] as chat
+[Graph Panel] as graph
+[Property Panel] as property
+[Chat Header] as chatHeader
+[Chat History] as chatHistory
+[Message Composer] as composer
+[Graph Controls] as graphControls
+[Graph Visualization] as graphViz
+[Mini Map] as miniMap
+[Property Header] as propHeader
+[Property Content] as propContent
+[Action Footer] as actionFooter
+[Resize Handler] as resizeHandler
+[Panel Controls] as panelControls
+[Floating Action] as fab
+
+' Layout containers
+rectangle "Left Panel" {
+  chat -[hidden]-> chatHeader
+  chatHeader -[hidden]-> chatHistory
+  chatHistory -[hidden]-> composer
+  chat --> chatHeader
+  chat --> chatHistory
+  chat --> composer
+}
+
+rectangle "Center Panel" {
+  graph -[hidden]-> graphControls
+  graphControls -[hidden]-> graphViz
+  graphViz -[hidden]-> miniMap
+  graph --> graphControls
+  graph --> graphViz
+  graph --> miniMap
+}
+
+rectangle "Right Panel" {
+  property -[hidden]-> propHeader
+  propHeader -[hidden]-> propContent
+  propContent -[hidden]-> actionFooter
+  property --> propHeader
+  property --> propContent
+  property --> actionFooter
+}
+
+' Main workspace composition
+workspace --> chat
+workspace --> graph
+workspace --> property
+workspace --> resizeHandler
+workspace --> panelControls
+workspace --> fab
+
+' Interactive relationships
+resizeHandler ..> chat : resizes
+resizeHandler ..> graph : resizes
+resizeHandler ..> property : resizes
+
+panelControls ..> chat : toggles
+panelControls ..> property : toggles
+
+' Data flow
+composer ..> graphViz : updates
+graphViz ..> propContent : selection
+miniMap ..> graphViz : navigation
+
+@enduml

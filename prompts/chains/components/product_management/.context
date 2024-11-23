@@ -1,0 +1,75 @@
+# Product Management Components Context
+
+## Purpose
+Manages product requirements, feature specifications, and business documentation.
+
+## Components
+1. business_gen_prompt.md
+   - Business requirements
+   - Product specifications
+   - Market analysis
+
+2. full_feature_journey_map_doc-fjmd.md
+   - Feature mapping
+   - User journeys
+   - Experience flows
+
+3. product_manager_prd.md
+   - Product requirements
+   - Feature definitions
+   - Development guidelines
+
+4. svbr_business_ontology_prompt.md
+   - Business ontology
+   - Domain modeling
+   - Concept mapping
+
+## Integration
+- Used by Neo for planning
+- Guides development
+- Informs implementation
+
+## Usage
+1. Product Planning
+   - Requirements gathering
+   - Feature specification
+   - Journey mapping
+
+2. Business Analysis
+   - Market research
+   - User needs
+   - Product strategy
+
+## Relationships
+- Guides development
+- Informs architecture
+- Directs implementation
+
+## Implementation Flow
+1. Requirements gathering
+2. Feature specification
+3. Journey mapping
+4. Development guidance
+
+## Documentation
+- Product requirements
+- Feature specifications
+- Journey maps
+- Business analysis
+
+## Dependencies
+- Business analysis tools
+- Requirements management
+- Documentation system
+
+## Key Features
+- Product planning
+- Feature specification
+- Journey mapping
+- Business analysis
+
+## Notes
+- Critical for product direction
+- Guides development
+- Ensures business alignment
+- Maintains product vision
