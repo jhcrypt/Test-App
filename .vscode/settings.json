@@ -1,8 +1,27 @@
 {
-    "terminal.integrated.defaultProfile.windows": "Command Prompt",
-    "terminal.integrated.profiles.windows": {
-        "Command Prompt": {
-            "path": "cmd.exe"
-        }
-    }
+    "terminal.integrated.defaultProfile.windows":  "PowerShell",
+    "terminal.integrated.profiles.windows":  {
+                                                 "PowerShell":  {
+                                                                    "source":  "PowerShell",
+                                                                    "icon":  "terminal-powershell",
+                                                                    "args":  [
+                                                                                 "-NoLogo"
+                                                                             ]
+                                                                }
+                                             },
+    "terminal.integrated.shellIntegration.enabled":  true,
+    "terminal.integrated.enablePersistentSessions":  true,
+    "terminal.integrated.scrollback":  10000,
+    "powershell.promptToUpdatePowerShell":  true,
+    "powershell.integratedConsole.showOnStartup":  true,
+    "powershell.startAutomatically":  true,
+    "powershell.enableProfileLoading":  true,
+    "editor.rulers":  [
+                          100
+                      ],
+    "files.encoding":  "utf8",
+    "files.eol":  "\n",
+    "powershell.codeFormatting.preset":  "OTBS",
+    "powershell.scriptAnalysis.enable":  true,
+    "powershell.debugging.createTemporaryIntegratedConsole":  true
 }

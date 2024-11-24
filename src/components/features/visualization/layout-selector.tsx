@@ -1,3 +1,8 @@
+﻿/**
+ * @file: layout-selector.tsx
+ * @lastModified: [2024-11-24 05:02]
+ * @backup: Use VSCode task "Create Backup" before major changes
+ */
 'use client';
 
 import { LayoutType } from '@/lib/types';
@@ -46,8 +51,8 @@ const layouts: LayoutOption[] = [
     description: 'Radial comparison with central focus',
   },
   {
-    value: 'flowchart',
-    label: 'Flowchart',
+    value: 'process',
+    label: 'Process',
     icon: (
       <svg
         viewBox="0 0 24 24"

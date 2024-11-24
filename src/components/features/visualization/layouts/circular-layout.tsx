@@ -1,3 +1,10 @@
+﻿/**
+ * @file: circular-layout.tsx
+ * @lastModified: [2024-11-24 05:02]
+ * @backup: Use VSCode task "Create Backup" before major changes
+ */
+'use client';
+
 import React from 'react';
 import { Aspect, VisualizationStyles } from '@/lib/types';
 import { animations, shadows, borders } from '@/lib/styles';
@@ -45,10 +52,7 @@ export const CircularLayout: React.FC<CircularLayoutProps> = ({
   };
 
   return (
-    <div className="relative w-full h-[800px] flex items-center justify-center overflow-hidden">
-      {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-radial from-gray-900 via-gray-800 to-gray-900 opacity-50" />
-
+    <div className="relative w-full h-[800px] flex items-center justify-center p-8">
       {/* Center Circle */}
       <div 
         className={`
@@ -59,41 +63,27 @@ export const CircularLayout: React.FC<CircularLayoutProps> = ({
       >
         <div 
           className={`
-            w-64 h-64 ${borders.circle}
-            bg-gradient-to-br from-${colors.left}-500/20 via-gray-800/30 to-${colors.right}-500/20
+            w-48 h-48 ${borders.circle}
+            bg-gradient-to-br from-${colors.left}-500/10 to-${colors.right}-500/10
             border border-white/10 backdrop-blur-sm
-            p-8 flex items-center justify-center
-            ${animations.scaleOnHover}
+            flex flex-col items-center justify-center text-center
             ${shadows.xl}
           `}
         >
-          <div className="text-center space-y-4">
-            <div className="space-y-6">
-              <div>
-                <h2 className={`font-bold ${getFontSizeClasses('title')} text-${colors.left}-400 mb-1`}>
-                  {subject1}
-                </h2>
-                <p className={`${getFontSizeClasses('description')} text-gray-400`}>
-                  {descriptions[subject1]}
-                </p>
-              </div>
-              <div>
-                <h2 className={`font-bold ${getFontSizeClasses('title')} text-${colors.right}-400 mb-1`}>
-                  {subject2}
-                </h2>
-                <p className={`${getFontSizeClasses('description')} text-gray-400`}>
-                  {descriptions[subject2]}
-                </p>
-              </div>
-            </div>
-          </div>
+          <h2 className={`${getFontSizeClasses('title')} text-${colors.left}-400 mb-2`}>
+            {subject1}
+          </h2>
+          <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-gray-500 to-transparent my-2" />
+          <h2 className={`${getFontSizeClasses('title')} text-${colors.right}-400 mt-2`}>
+            {subject2}
+          </h2>
         </div>
       </div>
 
       {/* Circular Elements */}
       {aspects.map((aspect, index) => {
         const position = getCirclePosition(index, aspects.length, 300);
-        const delay = index * 100; // milliseconds
+        const delay = index * 100;
         
         return (
           <div
@@ -106,28 +96,24 @@ export const CircularLayout: React.FC<CircularLayoutProps> = ({
             style={{
               left: `calc(50% + ${position.x}px)`,
               top: `calc(50% + ${position.y}px)`,
-              zIndex: 10,
-              transitionDelay: `${delay}ms`
+              transitionDelay: `${delay}ms`,
             }}
           >
-            <div className="flex gap-4">
-              {/* Aspect Card */}
-              <div 
-                className={`
-                  w-48 p-4 ${borders.rounded}
-                  bg-gradient-to-br from-${colors.left}-500/10 to-transparent
-                  border border-${colors.left}-500/20 backdrop-blur-sm
-                  ${animations.scaleOnHover}
-                  ${shadows.lg}
-                `}
-              >
-                <h3 className={`font-medium mb-2 ${getFontSizeClasses('aspect-title')} text-${colors.left}-300`}>
-                  {aspect.title}
-                </h3>
-                <p className={`${getFontSizeClasses('aspect-text')} text-gray-400`}>
-                  {aspect.values[subject1]}
-                </p>
-              </div>
+            <div 
+              className={`
+                w-40 p-4 ${borders.rounded}
+                bg-gradient-to-br from-${colors.left}-500/5 to-transparent
+                border border-${colors.left}-500/20 backdrop-blur-sm
+                ${animations.scaleOnHover}
+                ${shadows.lg}
+              `}
+            >
+              <h3 className={`font-medium mb-2 ${getFontSizeClasses('aspect-title')} text-${colors.left}-300`}>
+                {aspect.title}
+              </h3>
+              <p className={`${getFontSizeClasses('aspect-text')} text-gray-400`}>
+                {aspect.values[subject1]}
+              </p>
             </div>
           </div>
         );
@@ -167,5 +153,3 @@ export const CircularLayout: React.FC<CircularLayoutProps> = ({
     </div>
   );
 };
-
-export default CircularLayout;

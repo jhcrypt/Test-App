@@ -1,0 +1,21 @@
+{
+    "backup": {
+        "rootPath": "F:\\ProjectBackups\\Test-App",
+        "maxDays": 7,
+        "maxSizePerBackupMB": 50,
+        "excludePaths": [
+            "node_modules",
+            "dist",
+            ".next"
+        ]
+    },
+    "maintenance": {
+        "updateTimestamps": true,
+        "runLintCheck": true,
+        "cleanOldBackups": true
+    },
+    "notifications": {
+        "showSizeWarnings": true,
+        "showStats": true
+    }
+}

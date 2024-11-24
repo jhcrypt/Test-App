@@ -1,4 +1,22 @@
+﻿/**
+ * @file: comparison-visualization.tsx
+ * @lastModified: [2024-11-24 05:02]
+ * @backup: Use VSCode task "Create Backup" before major changes
+ */
 'use client';
+
+// TODO [2024-11-24]: Current State - Visualization Component
+// Working:
+// - Renders different layout types (circular, orbital, etc.)
+// - Handles layout switching
+// - Applies styles and animations
+// Issues:
+// - Visualization not appearing after transformation
+// - Need to verify data flow from text input
+// Next Steps:
+// - Debug data flow from text input to visualization
+// - Add error boundaries for better error handling
+// - Improve layout transitions
 
 import { ComparisonData, VisualizationStyles } from '@/lib/types';
 import {
@@ -25,7 +43,6 @@ export function ComparisonVisualization({
   styles,
   getFontSizeClasses
 }: ComparisonVisualizationProps) {
-  // Use state to handle hydration
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -93,7 +110,6 @@ export function ComparisonVisualization({
   const renderLayout = () => {
     switch (styles.layout) {
       case 'process':
-      case 'flowchart':
         return <ProcessLayout {...layoutProps} />;
       
       case 'flower':

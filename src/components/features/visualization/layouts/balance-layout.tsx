@@ -1,6 +1,12 @@
+﻿/**
+ * @file: balance-layout.tsx
+ * @lastModified: [2024-11-24 05:02]
+ * @backup: Use VSCode task "Create Backup" before major changes
+ */
 'use client';
 
 import { Aspect, VisualizationStyles } from '@/lib/types';
+import { animations, borders, shadows } from '@/lib/styles';
 
 export interface BalanceLayoutProps {
   aspects: Aspect[];
@@ -27,176 +33,159 @@ export function BalanceLayout({
   colors,
   getFontSizeClasses,
 }: BalanceLayoutProps) {
-  return (
-    <div className="mx-auto w-full max-w-6xl">
-      {/* Balance Beam */}
-      <div className="relative mb-16 flex justify-center">
-        <div className="h-40 w-2 rounded-full bg-gradient-to-b from-gray-700 to-gray-700/50" />
-        <div className="absolute bottom-0 left-1/2 h-2 w-[600px] -translate-x-1/2 rounded-full bg-gradient-to-r from-gray-700/50 via-gray-700 to-gray-700/50" />
-      </div>
+  // Calculate positions for balance scale arrangement
+  const getBalancePosition = (index: number, total: number, side: 'left' | 'right') => {
+    const radius = 200;
+    const angleSpread = Math.PI / 3; // 60 degrees
+    const baseAngle = side === 'left' ? Math.PI + angleSpread : -angleSpread;
+    const angleStep = (Math.PI / 3) / (total - 1);
+    const angle = baseAngle + index * angleStep;
+    
+    const x = Math.cos(angle) * radius;
+    const y = Math.sin(angle) * radius + 100; // Offset down from center
+    return { x, y };
+  };
 
-      {/* Headers */}
-      <div className="mb-12 grid grid-cols-2 gap-40">
-        {/* Left Subject */}
-        <div
-          className={`
-          rounded-2xl bg-gradient-to-br
-          p-6 from-${colors.left}-500/10 border
-          to-transparent border-${colors.left}-500/20 transform
-          shadow-lg backdrop-blur-sm transition-transform
-          hover:scale-[1.02] shadow-${colors.left}-500/5
-        `}
-        >
-          <h2 className={`font-bold ${getFontSizeClasses('title')} text-${colors.left}-400 mb-2`}>
+  return (
+    <div className="relative w-full h-[800px] flex items-center justify-center p-8">
+      {/* Center Balance Point */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+        <div className={`
+          w-48 h-48 ${borders.circle}
+          bg-gradient-to-br from-${colors.left}-500/10 to-${colors.right}-500/10
+          border border-white/10 backdrop-blur-sm
+          flex flex-col items-center justify-center text-center
+          ${shadows.xl}
+        `}>
+          <h2 className={`${getFontSizeClasses('title')} text-${colors.left}-400 mb-2`}>
             {subject1}
           </h2>
-          <p className={`${getFontSizeClasses('description')} text-gray-300`}>
-            {descriptions[subject1]}
-          </p>
-        </div>
-
-        {/* Right Subject */}
-        <div
-          className={`
-          rounded-2xl bg-gradient-to-br
-          p-6 from-${colors.right}-500/10 border
-          to-transparent border-${colors.right}-500/20 transform
-          shadow-lg backdrop-blur-sm transition-transform
-          hover:scale-[1.02] shadow-${colors.right}-500/5
-        `}
-        >
-          <h2 className={`font-bold ${getFontSizeClasses('title')} text-${colors.right}-400 mb-2`}>
+          <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-gray-500 to-transparent my-2" />
+          <h2 className={`${getFontSizeClasses('title')} text-${colors.right}-400 mt-2`}>
             {subject2}
           </h2>
-          <p className={`${getFontSizeClasses('description')} text-gray-300`}>
-            {descriptions[subject2]}
-          </p>
         </div>
       </div>
 
-      {/* Balance Scales */}
-      <div className="grid grid-cols-2 gap-8">
-        <div className="space-y-4">
-          {/* Left Scale */}
-          {aspects.map((aspect, index) => (
+      {/* Balance Scale Elements */}
+      {aspects.map((aspect, index) => {
+        // Create positions for both left and right sides
+        const leftPosition = getBalancePosition(index, aspects.length, 'left');
+        const rightPosition = getBalancePosition(index, aspects.length, 'right');
+        const delay = index * 100;
+
+        return (
+          <div key={index}>
+            {/* Left Side */}
             <div
-              key={index}
-              className={`
-                group relative rounded-2xl bg-gradient-to-br
-                p-6 from-${colors.left}-500/5 border
-                to-transparent border-${colors.left}-500/20 transform
-                shadow-lg backdrop-blur-sm transition-transform
-                hover:scale-[1.02] shadow-${colors.left}-500/5
-                ml-${index * 4}
-              `}
+              className="absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-700 ease-out"
               style={{
-                marginLeft: `${index * 16}px`,
-                marginTop: `${index * 8}px`,
+                left: `calc(50% + ${leftPosition.x}px)`,
+                top: `calc(50% + ${leftPosition.y}px)`,
+                transitionDelay: `${delay}ms`,
               }}
             >
-              {/* Aspect Title */}
-              <div className="mb-4">
-                <h3
-                  className={`font-medium ${getFontSizeClasses('aspect-title')} text-${colors.left}-300`}
-                >
+              <div className={`
+                w-40 p-4 ${borders.rounded}
+                bg-gradient-to-br from-${colors.left}-500/5 to-transparent
+                border border-${colors.left}-500/20 backdrop-blur-sm
+                ${animations.scaleOnHover}
+                ${shadows.lg}
+              `}>
+                <h3 className={`font-medium mb-2 ${getFontSizeClasses('aspect-title')} text-${colors.left}-300`}>
                   {aspect.title}
                 </h3>
-                <div
-                  className={`mt-2 h-0.5 w-16 bg-gradient-to-r from-${colors.left}-500/50 to-transparent`}
-                />
+                <p className={`${getFontSizeClasses('aspect-text')} text-gray-400`}>
+                  {aspect.values[subject1]}
+                </p>
               </div>
-
-              {/* Content */}
-              <p className={`${getFontSizeClasses('aspect-text')} text-gray-400`}>
-                {aspect.values[subject1]}
-              </p>
-
-              {/* Hover Effect */}
-              <div
-                className={`
-                absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0
-                group-hover:opacity-100 from-${colors.left}-500/5 to-transparent
-                transition-opacity duration-300
-              `}
-              />
-
-              {/* Weight Line */}
-              <div className="absolute -top-4 right-8 h-4 w-px bg-gradient-to-b from-gray-700 to-transparent" />
             </div>
-          ))}
-        </div>
 
-        <div className="space-y-4">
-          {/* Right Scale */}
-          {aspects.map((aspect, index) => (
+            {/* Right Side */}
             <div
-              key={index}
-              className={`
-                group relative rounded-2xl bg-gradient-to-br
-                p-6 from-${colors.right}-500/5 border
-                to-transparent border-${colors.right}-500/20 transform
-                shadow-lg backdrop-blur-sm transition-transform
-                hover:scale-[1.02] shadow-${colors.right}-500/5
-                ml-${index * 4}
-              `}
+              className="absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-700 ease-out"
               style={{
-                marginLeft: `${index * 16}px`,
-                marginTop: `${index * 8}px`,
+                left: `calc(50% + ${rightPosition.x}px)`,
+                top: `calc(50% + ${rightPosition.y}px)`,
+                transitionDelay: `${delay}ms`,
               }}
             >
-              {/* Aspect Title */}
-              <div className="mb-4">
-                <h3
-                  className={`font-medium ${getFontSizeClasses('aspect-title')} text-${colors.right}-300`}
-                >
+              <div className={`
+                w-40 p-4 ${borders.rounded}
+                bg-gradient-to-br from-${colors.right}-500/5 to-transparent
+                border border-${colors.right}-500/20 backdrop-blur-sm
+                ${animations.scaleOnHover}
+                ${shadows.lg}
+              `}>
+                <h3 className={`font-medium mb-2 ${getFontSizeClasses('aspect-title')} text-${colors.right}-300`}>
                   {aspect.title}
                 </h3>
-                <div
-                  className={`mt-2 h-0.5 w-16 bg-gradient-to-r from-${colors.right}-500/50 to-transparent`}
-                />
+                <p className={`${getFontSizeClasses('aspect-text')} text-gray-400`}>
+                  {aspect.values[subject2]}
+                </p>
               </div>
-
-              {/* Content */}
-              <p className={`${getFontSizeClasses('aspect-text')} text-gray-400`}>
-                {aspect.values[subject2]}
-              </p>
-
-              {/* Hover Effect */}
-              <div
-                className={`
-                absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0
-                group-hover:opacity-100 from-${colors.right}-500/5 to-transparent
-                transition-opacity duration-300
-              `}
-              />
-
-              {/* Weight Line */}
-              <div className="absolute -top-4 right-8 h-4 w-px bg-gradient-to-b from-gray-700 to-transparent" />
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        );
+      })}
 
-      {/* Decorative Lines */}
-      <svg className="pointer-events-none absolute inset-0 h-full w-full" style={{ zIndex: 1 }}>
+      {/* Balance Scale Lines */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 5 }}>
+        <defs>
+          <linearGradient id="balanceGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor={`rgb(var(--${colors.left}-500) / 0.2)`} />
+            <stop offset="100%" stopColor={`rgb(var(--${colors.right}-500) / 0.2)`} />
+          </linearGradient>
+        </defs>
+        {/* Center Support Line */}
         <line
-          x1="30%"
-          y1="200"
-          x2="30%"
-          y2="300"
-          className="stroke-gray-700/30"
-          strokeWidth="1"
-          strokeDasharray="4 4"
+          x1="50%"
+          y1="33%"
+          x2="50%"
+          y2="20%"
+          stroke="url(#balanceGradient)"
+          strokeWidth="2"
         />
+        {/* Balance Beam */}
         <line
-          x1="70%"
-          y1="200"
-          x2="70%"
-          y2="300"
-          className="stroke-gray-700/30"
-          strokeWidth="1"
-          strokeDasharray="4 4"
+          x1="25%"
+          y1="33%"
+          x2="75%"
+          y2="33%"
+          stroke="url(#balanceGradient)"
+          strokeWidth="2"
         />
+        {/* Connection Lines */}
+        {aspects.map((_, index) => {
+          const leftPos = getBalancePosition(index, aspects.length, 'left');
+          const rightPos = getBalancePosition(index, aspects.length, 'right');
+          return (
+            <g key={index}>
+              <line
+                x1="50%"
+                y1="33%"
+                x2={`calc(50% + ${leftPos.x}px)`}
+                y2={`calc(50% + ${leftPos.y}px)`}
+                stroke="url(#balanceGradient)"
+                strokeWidth="1"
+                strokeDasharray="4 4"
+                className="transition-opacity duration-700 ease-out"
+                style={{ transitionDelay: `${index * 100}ms` }}
+              />
+              <line
+                x1="50%"
+                y1="33%"
+                x2={`calc(50% + ${rightPos.x}px)`}
+                y2={`calc(50% + ${rightPos.y}px)`}
+                stroke="url(#balanceGradient)"
+                strokeWidth="1"
+                strokeDasharray="4 4"
+                className="transition-opacity duration-700 ease-out"
+                style={{ transitionDelay: `${index * 100}ms` }}
+              />
+            </g>
+          );
+        })}
       </svg>
     </div>
   );

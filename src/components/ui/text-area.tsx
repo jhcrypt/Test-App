@@ -1,3 +1,8 @@
+﻿/**
+ * @file: text-area.tsx
+ * @lastModified: [2024-11-24 05:02]
+ * @backup: Use VSCode task "Create Backup" before major changes
+ */
 'use client';
 
 import * as React from 'react';

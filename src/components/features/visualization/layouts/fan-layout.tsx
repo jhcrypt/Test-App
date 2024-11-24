@@ -1,6 +1,12 @@
+﻿/**
+ * @file: fan-layout.tsx
+ * @lastModified: [2024-11-24 05:02]
+ * @backup: Use VSCode task "Create Backup" before major changes
+ */
 'use client';
 
 import { Aspect, VisualizationStyles } from '@/lib/types';
+import { animations, borders, shadows } from '@/lib/styles';
 
 export interface FanLayoutProps {
   aspects: Aspect[];
@@ -27,194 +33,103 @@ export function FanLayout({
   colors,
   getFontSizeClasses,
 }: FanLayoutProps) {
-  // Calculate positions for fan segments
-  const getFanPosition = (index: number, total: number, side: 'left' | 'right') => {
-    const fanSpread = 150; // Degrees of the fan spread
-    const startAngle = -fanSpread / 2;
-    const angleStep = fanSpread / (total - 1 || 1);
-    const angle = startAngle + index * angleStep;
-    const radius = 300;
-
-    // Convert angle to radians and calculate position
-    const radians = (angle * Math.PI) / 180;
-    const x = Math.cos(radians) * radius;
-    const y = Math.sin(radians) * radius;
-
-    // Adjust x based on side
-    const adjustedX = side === 'left' ? -Math.abs(x) : Math.abs(x);
-
-    return {
-      x: adjustedX,
-      y,
-      angle: angle + (side === 'left' ? 180 : 0), // Rotate text for readability
-    };
+  // Calculate positions for fan arrangement
+  const getFanPosition = (index: number, total: number, radius: number) => {
+    // Fan spans 180 degrees (π radians)
+    const angle = (index * Math.PI) / (total - 1) - Math.PI / 2;
+    const x = Math.cos(angle) * radius;
+    const y = Math.sin(angle) * radius;
+    const rotation = (angle * 180) / Math.PI;
+    return { x, y, rotation };
   };
 
   return (
-    <div className="relative flex h-[800px] w-full items-center justify-center overflow-hidden">
-      {/* Center Headers */}
-      <div className="absolute left-0 right-0 top-8 z-20 flex justify-center gap-8">
-        {/* Left Subject */}
-        <div
-          className={`
-          rounded-2xl bg-gradient-to-br
-          p-6 from-${colors.left}-500/10 border
-          to-transparent border-${colors.left}-500/20 transform
-          shadow-lg backdrop-blur-sm transition-transform
-          hover:scale-105 shadow-${colors.left}-500/5
-          max-w-xs
-        `}
-        >
-          <h2 className={`font-bold ${getFontSizeClasses('title')} text-${colors.left}-400 mb-2`}>
+    <div className="relative w-full h-[800px] flex items-center justify-center p-8">
+      {/* Center Circle */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+        <div className={`
+          w-48 h-48 ${borders.circle}
+          bg-gradient-to-br from-${colors.left}-500/10 to-${colors.right}-500/10
+          border border-white/10 backdrop-blur-sm
+          flex flex-col items-center justify-center text-center
+          ${shadows.xl}
+        `}>
+          <h2 className={`${getFontSizeClasses('title')} text-${colors.left}-400 mb-2`}>
             {subject1}
           </h2>
-          <p className={`${getFontSizeClasses('description')} text-gray-300`}>
-            {descriptions[subject1]}
-          </p>
-        </div>
-
-        {/* Right Subject */}
-        <div
-          className={`
-          rounded-2xl bg-gradient-to-br
-          p-6 from-${colors.right}-500/10 border
-          to-transparent border-${colors.right}-500/20 transform
-          shadow-lg backdrop-blur-sm transition-transform
-          hover:scale-105 shadow-${colors.right}-500/5
-          max-w-xs
-        `}
-        >
-          <h2 className={`font-bold ${getFontSizeClasses('title')} text-${colors.right}-400 mb-2`}>
+          <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-gray-500 to-transparent my-2" />
+          <h2 className={`${getFontSizeClasses('title')} text-${colors.right}-400 mt-2`}>
             {subject2}
           </h2>
-          <p className={`${getFontSizeClasses('description')} text-gray-300`}>
-            {descriptions[subject2]}
-          </p>
         </div>
       </div>
 
-      {/* Background Decoration */}
-      <svg className="pointer-events-none absolute inset-0 h-full w-full" style={{ zIndex: 1 }}>
+      {/* Fan Elements */}
+      {aspects.map((aspect, index) => {
+        const position = getFanPosition(index, aspects.length, 300);
+        const delay = index * 100;
+
+        return (
+          <div
+            key={index}
+            className="absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-700 ease-out"
+            style={{
+              left: `calc(50% + ${position.x}px)`,
+              top: `calc(50% + ${position.y}px)`,
+              transform: `translate(-50%, -50%) rotate(${position.rotation}deg)`,
+              transitionDelay: `${delay}ms`,
+            }}
+          >
+            <div className={`
+              w-40 p-4 ${borders.rounded}
+              bg-gradient-to-br from-${colors.left}-500/5 to-transparent
+              border border-${colors.left}-500/20 backdrop-blur-sm
+              ${animations.scaleOnHover}
+              ${shadows.lg}
+            `}
+            style={{
+              transform: `rotate(${-position.rotation}deg)`,
+            }}
+            >
+              <h3 className={`font-medium mb-2 ${getFontSizeClasses('aspect-title')} text-${colors.left}-300`}>
+                {aspect.title}
+              </h3>
+              <p className={`${getFontSizeClasses('aspect-text')} text-gray-400`}>
+                {aspect.values[subject1]}
+              </p>
+            </div>
+          </div>
+        );
+      })}
+
+      {/* Connecting Lines */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 5 }}>
         <defs>
-          <linearGradient id="leftGradient" x1="0%" y1="50%" x2="100%" y2="50%">
-            <stop offset="0%" stopColor={`rgb(var(--${colors.left}-500-rgb), 0.05)`} />
-            <stop offset="100%" stopColor={`rgb(var(--${colors.left}-500-rgb), 0)`} />
-          </linearGradient>
-          <linearGradient id="rightGradient" x1="100%" y1="50%" x2="0%" y2="50%">
-            <stop offset="0%" stopColor={`rgb(var(--${colors.right}-500-rgb), 0.05)`} />
-            <stop offset="100%" stopColor={`rgb(var(--${colors.right}-500-rgb), 0)`} />
+          <linearGradient id="fanGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor={`rgb(var(--${colors.left}-500) / 0.2)`} />
+            <stop offset="100%" stopColor={`rgb(var(--${colors.right}-500) / 0.2)`} />
           </linearGradient>
         </defs>
-        <path
-          d="M 0,400 C 200,300 300,200 400,0 V 800 C 300,600 200,500 0,400 Z"
-          fill="url(#leftGradient)"
-        />
-        <path
-          d="M 800,400 C 600,300 500,200 400,0 V 800 C 500,600 600,500 800,400 Z"
-          fill="url(#rightGradient)"
-        />
-      </svg>
-
-      {/* Fan Elements */}
-      <div className="relative mt-32">
-        {aspects.map((aspect, index) => {
-          const leftPos = getFanPosition(index, aspects.length, 'left');
-          const rightPos = getFanPosition(index, aspects.length, 'right');
-
+        {aspects.map((_, index) => {
+          const position = getFanPosition(index, aspects.length, 300);
           return (
-            <div key={index}>
-              {/* Left Fan Segment */}
-              <div
-                className="absolute -translate-x-1/2 -translate-y-1/2 transform"
-                style={{
-                  left: `calc(50% + ${leftPos.x}px)`,
-                  top: `calc(50% + ${leftPos.y}px)`,
-                  zIndex: 10,
-                }}
-              >
-                <div
-                  className={`
-                  w-48 rounded-2xl bg-gradient-to-br
-                  p-4 from-${colors.left}-500/10 border
-                  to-transparent border-${colors.left}-500/20 transform
-                  shadow-lg backdrop-blur-sm transition-transform
-                  hover:scale-105 shadow-${colors.left}-500/5
-                `}
-                >
-                  <h3
-                    className={`mb-2 font-medium ${getFontSizeClasses('aspect-title')} text-${colors.left}-300`}
-                  >
-                    {aspect.title}
-                  </h3>
-                  <p className={`${getFontSizeClasses('aspect-text')} text-gray-400`}>
-                    {aspect.values[subject1]}
-                  </p>
-                </div>
-              </div>
-
-              {/* Right Fan Segment */}
-              <div
-                className="absolute -translate-x-1/2 -translate-y-1/2 transform"
-                style={{
-                  left: `calc(50% + ${rightPos.x}px)`,
-                  top: `calc(50% + ${rightPos.y}px)`,
-                  zIndex: 10,
-                }}
-              >
-                <div
-                  className={`
-                  w-48 rounded-2xl bg-gradient-to-br
-                  p-4 from-${colors.right}-500/10 border
-                  to-transparent border-${colors.right}-500/20 transform
-                  shadow-lg backdrop-blur-sm transition-transform
-                  hover:scale-105 shadow-${colors.right}-500/5
-                `}
-                >
-                  <h3
-                    className={`mb-2 font-medium ${getFontSizeClasses('aspect-title')} text-${colors.right}-300`}
-                  >
-                    {aspect.title}
-                  </h3>
-                  <p className={`${getFontSizeClasses('aspect-text')} text-gray-400`}>
-                    {aspect.values[subject2]}
-                  </p>
-                </div>
-              </div>
-            </div>
+            <line
+              key={index}
+              x1="50%"
+              y1="50%"
+              x2={`calc(50% + ${position.x}px)`}
+              y2={`calc(50% + ${position.y}px)`}
+              stroke="url(#fanGradient)"
+              strokeWidth="1"
+              strokeDasharray="4 4"
+              className="transition-opacity duration-700 ease-out"
+              style={{
+                transitionDelay: `${index * 100}ms`
+              }}
+            />
           );
         })}
-
-        {/* Connecting Lines */}
-        <svg className="pointer-events-none absolute inset-0 h-full w-full" style={{ zIndex: 5 }}>
-          {aspects.map((_, index) => {
-            const leftPos = getFanPosition(index, aspects.length, 'left');
-            const rightPos = getFanPosition(index, aspects.length, 'right');
-
-            return (
-              <g key={index}>
-                <line
-                  x1="50%"
-                  y1="50%"
-                  x2={`calc(50% + ${leftPos.x}px)`}
-                  y2={`calc(50% + ${leftPos.y}px)`}
-                  className={`stroke-${colors.left}-500/20`}
-                  strokeWidth="1"
-                  strokeDasharray="4 4"
-                />
-                <line
-                  x1="50%"
-                  y1="50%"
-                  x2={`calc(50% + ${rightPos.x}px)`}
-                  y2={`calc(50% + ${rightPos.y}px)`}
-                  className={`stroke-${colors.right}-500/20`}
-                  strokeWidth="1"
-                  strokeDasharray="4 4"
-                />
-              </g>
-            );
-          })}
-        </svg>
-      </div>
+      </svg>
     </div>
   );
 }

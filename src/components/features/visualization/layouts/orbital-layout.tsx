@@ -1,6 +1,12 @@
+﻿/**
+ * @file: orbital-layout.tsx
+ * @lastModified: [2024-11-24 05:02]
+ * @backup: Use VSCode task "Create Backup" before major changes
+ */
 'use client';
 
 import { Aspect, VisualizationStyles } from '@/lib/types';
+import { animations, borders, shadows } from '@/lib/styles';
 
 export interface OrbitalLayoutProps {
   aspects: Aspect[];
@@ -27,190 +33,93 @@ export function OrbitalLayout({
   colors,
   getFontSizeClasses,
 }: OrbitalLayoutProps) {
-  // Calculate positions for orbiting elements
-  const getOrbitalPosition = (index: number, total: number, radius: number, offset: number = 0) => {
-    const angle = (index * 2 * Math.PI) / total + offset;
+  // Calculate positions for orbital arrangement
+  const getOrbitalPosition = (index: number, total: number, radius: number) => {
+    const angle = (index * 2 * Math.PI) / total;
     const x = Math.cos(angle) * radius;
     const y = Math.sin(angle) * radius;
-    return { x, y, angle: (angle * 180) / Math.PI };
+    return { x, y };
   };
 
   return (
-    <div className="relative flex h-[800px] w-full items-center justify-center overflow-hidden">
-      {/* Central Subjects */}
-      <div className="absolute left-1/2 top-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 gap-32">
-        {/* Left Subject */}
-        <div
-          className={`
-          h-48 w-48 rounded-full
-          bg-gradient-to-br from-${colors.left}-500/20 to-${colors.left}-500/5
-          border border-${colors.left}-500/20 flex
-          transform items-center justify-center p-6
-          shadow-lg backdrop-blur-sm transition-transform
-          hover:scale-105 shadow-${colors.left}-500/10
-        `}
-        >
-          <div className="text-center">
-            <h2 className={`font-bold ${getFontSizeClasses('title')} text-${colors.left}-400 mb-2`}>
-              {subject1}
-            </h2>
-            <p className={`${getFontSizeClasses('description')} text-gray-300`}>
-              {descriptions[subject1]}
-            </p>
-          </div>
-        </div>
-
-        {/* Right Subject */}
-        <div
-          className={`
-          h-48 w-48 rounded-full
-          bg-gradient-to-br from-${colors.right}-500/20 to-${colors.right}-500/5
-          border border-${colors.right}-500/20 flex
-          transform items-center justify-center p-6
-          shadow-lg backdrop-blur-sm transition-transform
-          hover:scale-105 shadow-${colors.right}-500/10
-        `}
-        >
-          <div className="text-center">
-            <h2
-              className={`font-bold ${getFontSizeClasses('title')} text-${colors.right}-400 mb-2`}
-            >
-              {subject2}
-            </h2>
-            <p className={`${getFontSizeClasses('description')} text-gray-300`}>
-              {descriptions[subject2]}
-            </p>
-          </div>
+    <div className="relative w-full h-[800px] flex items-center justify-center p-8">
+      {/* Center Circle */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+        <div className={`
+          w-48 h-48 ${borders.circle}
+          bg-gradient-to-br from-${colors.left}-500/10 to-${colors.right}-500/10
+          border border-white/10 backdrop-blur-sm
+          flex flex-col items-center justify-center text-center
+          ${shadows.xl}
+        `}>
+          <h2 className={`${getFontSizeClasses('title')} text-${colors.left}-400 mb-2`}>
+            {subject1}
+          </h2>
+          <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-gray-500 to-transparent my-2" />
+          <h2 className={`${getFontSizeClasses('title')} text-${colors.right}-400 mt-2`}>
+            {subject2}
+          </h2>
         </div>
       </div>
 
-      {/* Orbital Paths */}
-      <svg className="pointer-events-none absolute inset-0 h-full w-full" style={{ zIndex: 1 }}>
-        {/* Left Orbit Path */}
-        <ellipse
-          cx="calc(50% - 120px)"
-          cy="50%"
-          rx="200"
-          ry="180"
-          fill="none"
-          className={`stroke-${colors.left}-500/10`}
-          strokeWidth="1"
-          strokeDasharray="4 4"
-          transform="rotate(-30, calc(50% - 120px), 50%)"
-        />
-        {/* Right Orbit Path */}
-        <ellipse
-          cx="calc(50% + 120px)"
-          cy="50%"
-          rx="200"
-          ry="180"
-          fill="none"
-          className={`stroke-${colors.right}-500/10`}
-          strokeWidth="1"
-          strokeDasharray="4 4"
-          transform="rotate(30, calc(50% + 120px), 50%)"
-        />
-      </svg>
-
-      {/* Orbiting Aspects */}
+      {/* Orbital Elements */}
       {aspects.map((aspect, index) => {
-        const leftPosition = getOrbitalPosition(index, aspects.length, 200, -Math.PI / 6);
-        const rightPosition = getOrbitalPosition(index, aspects.length, 200, Math.PI - Math.PI / 6);
+        const position = getOrbitalPosition(index, aspects.length, 300);
+        const delay = index * 100;
 
         return (
-          <div key={index}>
-            {/* Left Orbit */}
-            <div
-              className="absolute -translate-x-1/2 -translate-y-1/2 transform"
-              style={{
-                left: `calc(50% - 120px + ${leftPosition.x}px)`,
-                top: `calc(50% + ${leftPosition.y}px)`,
-                zIndex: 10,
-              }}
-            >
-              <div
-                className={`
-                w-40 rounded-xl p-4
-                bg-${colors.left}-500/5 border border-${colors.left}-500/20
-                transform
-                shadow-lg backdrop-blur-sm transition-transform
-                hover:scale-105 shadow-${colors.left}-500/5
-              `}
-              >
-                <h3
-                  className={`mb-2 font-medium ${getFontSizeClasses('aspect-title')} text-${colors.left}-300`}
-                >
-                  {aspect.title}
-                </h3>
-                <p className={`${getFontSizeClasses('aspect-text')} text-gray-400`}>
-                  {aspect.values[subject1]}
-                </p>
-              </div>
-            </div>
-
-            {/* Right Orbit */}
-            <div
-              className="absolute -translate-x-1/2 -translate-y-1/2 transform"
-              style={{
-                left: `calc(50% + 120px + ${rightPosition.x}px)`,
-                top: `calc(50% + ${rightPosition.y}px)`,
-                zIndex: 10,
-              }}
-            >
-              <div
-                className={`
-                w-40 rounded-xl p-4
-                bg-${colors.right}-500/5 border border-${colors.right}-500/20
-                transform
-                shadow-lg backdrop-blur-sm transition-transform
-                hover:scale-105 shadow-${colors.right}-500/5
-              `}
-              >
-                <h3
-                  className={`mb-2 font-medium ${getFontSizeClasses('aspect-title')} text-${colors.right}-300`}
-                >
-                  {aspect.title}
-                </h3>
-                <p className={`${getFontSizeClasses('aspect-text')} text-gray-400`}>
-                  {aspect.values[subject2]}
-                </p>
-              </div>
+          <div
+            key={index}
+            className="absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-700 ease-out"
+            style={{
+              left: `calc(50% + ${position.x}px)`,
+              top: `calc(50% + ${position.y}px)`,
+              transitionDelay: `${delay}ms`,
+            }}
+          >
+            <div className={`
+              w-40 p-4 ${borders.rounded}
+              bg-gradient-to-br from-${colors.left}-500/5 to-transparent
+              border border-${colors.left}-500/20 backdrop-blur-sm
+              ${animations.scaleOnHover}
+              ${shadows.lg}
+            `}>
+              <h3 className={`font-medium mb-2 ${getFontSizeClasses('aspect-title')} text-${colors.left}-300`}>
+                {aspect.title}
+              </h3>
+              <p className={`${getFontSizeClasses('aspect-text')} text-gray-400`}>
+                {aspect.values[subject1]}
+              </p>
             </div>
           </div>
         );
       })}
 
       {/* Connecting Lines */}
-      <svg className="pointer-events-none absolute inset-0 h-full w-full" style={{ zIndex: 5 }}>
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 5 }}>
+        <defs>
+          <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor={`rgb(var(--${colors.left}-500) / 0.2)`} />
+            <stop offset="100%" stopColor={`rgb(var(--${colors.right}-500) / 0.2)`} />
+          </linearGradient>
+        </defs>
         {aspects.map((_, index) => {
-          const leftPosition = getOrbitalPosition(index, aspects.length, 200, -Math.PI / 6);
-          const rightPosition = getOrbitalPosition(
-            index,
-            aspects.length,
-            200,
-            Math.PI - Math.PI / 6
-          );
+          const position = getOrbitalPosition(index, aspects.length, 300);
           return (
-            <g key={index}>
-              <line
-                x1={`calc(50% - 120px)`}
-                y1="50%"
-                x2={`calc(50% - 120px + ${leftPosition.x}px)`}
-                y2={`calc(50% + ${leftPosition.y}px)`}
-                className={`stroke-${colors.left}-500/20`}
-                strokeWidth="1"
-                strokeDasharray="4 4"
-              />
-              <line
-                x1={`calc(50% + 120px)`}
-                y1="50%"
-                x2={`calc(50% + 120px + ${rightPosition.x}px)`}
-                y2={`calc(50% + ${rightPosition.y}px)`}
-                className={`stroke-${colors.right}-500/20`}
-                strokeWidth="1"
-                strokeDasharray="4 4"
-              />
-            </g>
+            <line
+              key={index}
+              x1="50%"
+              y1="50%"
+              x2={`calc(50% + ${position.x}px)`}
+              y2={`calc(50% + ${position.y}px)`}
+              stroke="url(#lineGradient)"
+              strokeWidth="1"
+              strokeDasharray="4 4"
+              className="transition-opacity duration-700 ease-out"
+              style={{
+                transitionDelay: `${index * 100}ms`
+              }}
+            />
           );
         })}
       </svg>

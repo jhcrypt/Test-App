@@ -1,4 +1,22 @@
+﻿/**
+ * @file: text-input-section.tsx
+ * @lastModified: [2024-11-24 05:02]
+ * @backup: Use VSCode task "Create Backup" before major changes
+ */
 'use client';
+
+// TODO [2024-11-24]: Current State - Text Input Component
+// Working:
+// - Text input and character count
+// - Transform button UI
+// - Keyboard shortcuts (Ctrl/Cmd + Enter)
+// Issues:
+// - Need to verify data flow to visualization
+// - Check if transform handler is being called
+// Next Steps:
+// - Add console logs to track data flow
+// - Verify event handlers are working
+// - Add input validation feedback
 
 import { useState, useCallback } from 'react';
 import { debounce } from '@/lib/utils';
@@ -20,7 +38,6 @@ export function TextInputSection({
 }: TextInputSectionProps) {
   const [text, setText] = useState(defaultText);
   const [isFocused, setIsFocused] = useState(false);
-  const [showFormats, setShowFormats] = useState(false);
 
   const debouncedOnChange = useCallback(
     debounce((value: string) => {
@@ -52,44 +69,12 @@ export function TextInputSection({
 
   return (
     <div className="relative">
-      {/* Format Examples Button */}
-      <button
-        onClick={() => setShowFormats(!showFormats)}
-        className="absolute -top-10 right-0 text-sm text-gray-400 transition-colors hover:text-white"
-      >
-        {showFormats ? 'Hide Formats' : 'Show Formats'}
-      </button>
-
-      {/* Format Examples */}
-      {showFormats && (
-        <div className="absolute -top-36 left-0 right-0 animate-fade-in rounded-xl border border-white/10 bg-[#242424] p-4 shadow-lg">
-          <div className="grid grid-cols-2 gap-6">
-            <div>
-              <p className="mb-2 text-xs font-medium text-purple-400">Natural Language:</p>
-              <ul className="space-y-1">
-                <li className="text-xs text-gray-400">"what's the difference between X and Y"</li>
-                <li className="text-xs text-gray-400">"differences between X and Y"</li>
-                <li className="text-xs text-gray-400">"comparing X and Y"</li>
-              </ul>
-            </div>
-            <div>
-              <p className="mb-2 text-xs font-medium text-purple-400">Structured Format:</p>
-              <ul className="space-y-1">
-                <li className="text-xs text-gray-400">Subject1: description</li>
-                <li className="text-xs text-gray-400">Subject2: description</li>
-                <li className="text-xs text-gray-400">- Aspect: value1 vs value2</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Text Input */}
       <div
         className={`
-        relative rounded-2xl transition-all duration-200
-        ${isFocused ? 'shadow-lg shadow-purple-500/5' : 'shadow-md shadow-white/5'}
-      `}
+          relative rounded-2xl transition-all duration-200
+          ${isFocused ? 'shadow-lg shadow-purple-500/5' : 'shadow-md shadow-white/5'}
+        `}
       >
         <textarea
           value={text}
@@ -112,9 +97,9 @@ export function TextInputSection({
         <div className="absolute bottom-3 right-3">
           <span
             className={`
-            text-xs transition-colors duration-200
-            ${text.length > maxLength * 0.9 ? 'text-red-400' : 'text-gray-500'}
-          `}
+              text-xs transition-colors duration-200
+              ${text.length > maxLength * 0.9 ? 'text-red-400' : 'text-gray-500'}
+            `}
           >
             {text.length}/{maxLength}
           </span>
@@ -133,11 +118,12 @@ export function TextInputSection({
         disabled={isProcessing || !text.trim()}
         className={`
           mt-6 w-full rounded-xl px-6 py-4
-          text-sm font-medium transition-all duration-200
+          text-sm font-medium text-white
+          transition-all duration-300 ease-in-out
           ${
             isProcessing || !text.trim()
               ? 'cursor-not-allowed bg-gray-800 text-gray-500'
-              : 'bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-500/10'
+              : 'bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 active:scale-[0.98]'
           }
         `}
       >

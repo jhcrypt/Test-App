@@ -1,17 +1,8 @@
-export type LayoutType =
-  | 'side-by-side'
-  | 'process'
-  | 'flower'
-  | 'orbital'
-  | 'fan'
-  | 'balance'
-  | 'circular'
-  | 'flowchart';
-
-export type ColorScheme = 'blue-green' | 'purple-orange' | 'gray';
-
-export type FontSize = 'small' | 'medium' | 'large';
-
+﻿/**
+ * @file: types.ts
+ * @lastModified: [2024-11-24 05:02]
+ * @backup: Use VSCode task "Create Backup" before major changes
+ */
 export interface Aspect {
   title: string;
   values: {
@@ -28,60 +19,16 @@ export interface ComparisonData {
   aspects: Aspect[];
 }
 
+export type LayoutType = 'side-by-side' | 'circular' | 'process' | 'flower' | 'fan' | 'balance' | 'orbital';
+
 export interface VisualizationStyles {
   layout: LayoutType;
   leftColor: string;
   rightColor: string;
-  colorScheme: ColorScheme;
-  fontSize: FontSize;
+  colorScheme: string;
+  fontSize: 'small' | 'medium' | 'large';
 }
 
-export interface ColorPalette {
-  primary: string;
-  secondary: string;
-  tertiary: string;
-  bg: string;
-  border: string;
-}
+export type ColorTheme = 'ocean' | 'sunset' | 'monochrome';
 
-export interface ThemeColors {
-  left: ColorPalette;
-  right: ColorPalette;
-}
-
-export type FontSizeType = 'title' | 'description' | 'aspect-title' | 'aspect-text';
-
-export interface FontSizes {
-  [key: string]: {
-    [key in FontSizeType]: string;
-  };
-}
-
-export interface StorageData {
-  inputText: string;
-  comparisonData: ComparisonData | null;
-  styles: VisualizationStyles;
-}
-
-export interface KeyboardShortcut {
-  key: string;
-  handler: () => void;
-  ctrl?: boolean;
-  alt?: boolean;
-  shift?: boolean;
-  description?: string; // Added description property
-}
-
-export interface ShortcutHandlers {
-  onTransform: () => void;
-  onExport?: () => void;
-  onReset?: () => void;
-}
-
-export interface ShortcutConfig {
-  key: string;
-  description: string;
-  ctrl?: boolean;
-  alt?: boolean;
-  shift?: boolean;
-}
+export type TextSize = 'compact' | 'regular' | 'large';
