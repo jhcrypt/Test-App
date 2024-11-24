@@ -1,12 +1,12 @@
 # PowerShell script for daily maintenance
-# Last Modified: [2024-11-24 11:05]
-# Purpose: Keep our tracking system up to date
+# Last Modified: [2024-11-24 11:45]
 
-# First verify backup system
-Write-Host "Verifying backup system..."
-& "$PSScriptRoot\verify-backup.ps1"
-if (-not $?) {
-    Write-Host "Backup verification failed. Please fix issues before proceeding." -ForegroundColor Red
+# First validate environment
+Write-Host "Validating environment..."
+$validateScript = Join-Path $PSScriptRoot "validate-changes.ps1"
+& $validateScript
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Environment validation failed. Please fix issues before proceeding." -ForegroundColor Red
     exit 1
 }
 
@@ -19,7 +19,7 @@ $backupRoot = $config.backup.rootPath
 $timestamp = Get-Date -Format 'yyyy-MM-dd'
 $backupDir = Join-Path $backupRoot $timestamp
 
-Write-Host "`nCreating backup in $backupDir..."
+Write-Host "Creating backup in $backupDir..."
 if (-not (Test-Path $backupDir)) {
     New-Item -ItemType Directory -Path $backupDir -Force | Out-Null
 }
@@ -44,7 +44,7 @@ Get-ChildItem -Path "src" -Recurse |
 
 # Clean old backups if enabled
 if ($config.maintenance.cleanOldBackups) {
-    Write-Host "`nCleaning old backups..."
+    Write-Host "Cleaning old backups..."
     Get-ChildItem -Path $backupRoot -Directory |
         Sort-Object CreationTime |
         Select-Object -SkipLast $config.backup.maxDays |
@@ -54,32 +54,6 @@ if ($config.maintenance.cleanOldBackups) {
         }
 }
 
-# Update timestamps if enabled
-if ($config.maintenance.updateTimestamps) {
-    Write-Host "`nUpdating timestamps in modified files..."
-    Get-ChildItem -Path src -Recurse -Include *.ts,*.tsx |
-        ForEach-Object {
-            $content = Get-Content $_.FullName -Raw
-            if ($content -match "@lastModified: \[(.*?)\]") {
-                $lastMod = [DateTime]::ParseExact($matches[1], "yyyy-MM-dd HH:mm", $null)
-                $fileLastWrite = $_.LastWriteTime
-                
-                if ($fileLastWrite -gt $lastMod) {
-                    $newTimestamp = $fileLastWrite.ToString("yyyy-MM-dd HH:mm")
-                    $newContent = $content -replace "@lastModified: \[(.*?)\]", "@lastModified: [$newTimestamp]"
-                    Set-Content -Path $_.FullName -Value $newContent -NoNewline
-                    Write-Host "  Updated: $($_.Name) to $newTimestamp"
-                }
-            }
-        }
-}
-
-# Run lint check if enabled
-if ($config.maintenance.runLintCheck) {
-    Write-Host "`nRunning lint check..."
-    & "$PSScriptRoot\lint.ps1"
-}
-
 # Show backup stats if enabled
 if ($config.notifications.showStats) {
     $backupSize = (Get-ChildItem -Path $backupDir -Recurse |
@@ -87,11 +61,11 @@ if ($config.notifications.showStats) {
     $totalSize = (Get-ChildItem -Path $backupRoot -Recurse |
         Measure-Object -Property Length -Sum).Sum / 1MB
     
-    Write-Host "`nBackup Statistics:"
+    Write-Host "Backup Statistics:"
     Write-Host "Today's backup: $([math]::Round($backupSize, 2)) MB"
     Write-Host "Total backups: $([math]::Round($totalSize, 2)) MB"
     Write-Host "Location: $backupRoot"
     Write-Host "Keeping last $($config.backup.maxDays) days"
 }
 
-Write-Host "`nMaintenance complete."
+Write-Host "Maintenance complete."
